@@ -121,77 +121,7 @@
 
             document.getElementById("error").innerHTML = "Loading...";
 
-            try {
-                let response = await fetch(
-                    "https://api.github.com/users/" + username
-                );
-
-                let data = await response.json();
-
-                if (!response.ok) {
-                    throw new Error("User not found");
-                }
-
-                document.getElementById("error").innerHTML = "";
-
-                let repoResponse = await fetch(data.repos_url);
-                let repos = await repoResponse.json();
-
-                let repoList = "";
-
-                repos.slice(0, 5).forEach(function(repo) {
-                    repoList +=
-                        "<a href='" +
-                        repo.html_url +
-                        "' target='_blank'>" +
-                        repo.name +
-                        "</a>";
-                });
-
-                document.getElementById("profile").innerHTML =
-                    "<img src='" + data.avatar_url + "'>" +
-
-                    "<p id='name'>" +
-                    data.name +
-                    "</p>" +
-
-                    "<p>@" +
-                    data.login +
-                    "</p>" +
-
-                    "<p>" +
-                    (data.bio || "No bio available") +
-                    "</p>" +
-
-                    "<div class='stats'>" +
-                    "<div>Followers<br>" +
-                    data.followers +
-                    "</div>" +
-
-                    "<div>Following<br>" +
-                    data.following +
-                    "</div>" +
-
-                    "<div>Repositories<br>" +
-                    data.public_repos +
-                    "</div>" +
-                    "</div>" +
-
-                    "<a href='" +
-                    data.html_url +
-                    "' target='_blank'>View GitHub Profile</a>" +
-
-                    "<div id='repositories'>" +
-                    "<h3>Public Repositories</h3>" +
-                    repoList +
-                    "</div>";
-            }
-            catch (error) {
-                document.getElementById("profile").innerHTML = "";
-
-                document.getElementById("error").innerHTML =
-                    "GitHub user not found.";
-            }
+            
         }
     </script>
 
